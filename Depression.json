@@ -1,0 +1,28 @@
+[
+    {
+      "id": 1,
+      "text": "How often do you worry excessively about everyday activities such as work or school?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 2,
+      "text": "How often do you experience feelings of restlessness or being on edge?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 3,
+      "text": "How often do you have difficulty falling or staying asleep because of worrying thoughts?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 4,
+      "text": "How often do you feel a sense of impending doom or danger?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 5,
+      "text": "How often do you avoid social situations or events because of anxiety?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    }
+  ]
+  

@@ -1,0 +1,28 @@
+[
+    {
+      "id": 1,
+      "text": "How often do you feel overwhelmed by your responsibilities?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 2,
+      "text": "How often do you feel tense or anxious during the day?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 3,
+      "text": "How often do you struggle to fall or stay asleep because of stress?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 4,
+      "text": "How often do you feel physically exhausted due to stress?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    },
+    {
+      "id": 5,
+      "text": "How often do you feel like you don't have enough time to get everything done?",
+      "answerChoice": ["NEVER", "SOMETIMES", "OFTEN", "ALWAYS"]
+    }
+  ]
+  

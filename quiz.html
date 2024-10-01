@@ -1,0 +1,181 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Page</title>
+  <style>
+    /* Apply a background image */
+    body {
+      background-image: url('https://img.freepik.com/free-photo/rainy-day-mood-cartoon-style_23-2151557003.jpg?uid=R165677031&ga=GA1.1.878017198.1726736695&semt=ais_hybrid'); /* Replace with your desired background image URL */
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header styling */
+    .header, .header-div {
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for headers */
+      color: white;
+      
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Quiz question table */
+    table {
+      width: 100%;
+      max-width: 850px;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      color: #000;
+    }
+
+    /* Table cells and input fields */
+    td {
+      padding: 15px;
+      font-size: 18px;
+      
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    /* Submit button */
+    button {
+      display: block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin: 20px auto;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Button hover effect */
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>  
+
+
+<script type="text/javascript" charset="utf-8">
+    fetch('http://localhost:8080/questions')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(apiJsonData => {
+            renderHeaderDiv(apiJsonData);
+        })
+        .catch(error => {
+            console.error('Error fetching questions:', error);
+        });
+    
+    function renderHeaderDiv(questions) {
+        const mydiv = document.getElementById("header-div");
+        mydiv.innerHTML = `<h1>${questions.loggedInUser} Please answer the questions below for your quiz!</h1>`;
+        document.getElementById("level").value = questions.level;
+        const mytable = document.getElementById("quiz-table");
+        
+        questions.questionList.forEach(question => {
+            let newRow = document.createElement("tr");
+            let cell = document.createElement("td");
+            cell.innerText = `${question.id}. ${question.text}`;
+            newRow.appendChild(cell);
+            mytable.appendChild(newRow);
+
+            let answerRow = document.createElement("tr");
+            let answerChoice = document.createElement("td");
+            
+            question.answerChoice.forEach(answerOption => {
+                let radio = document.createElement("input");
+                radio.type = "radio";
+                radio.id = question.id + answerOption; // Unique ID
+                radio.name = question.id; // Group by question id
+                radio.value = answerOption;
+
+                let label = document.createElement("label");
+                label.setAttribute("for", radio.id);
+                label.textContent = answerOption; // Prevents XSS
+
+                answerChoice.appendChild(radio);
+                answerChoice.appendChild(label);
+                answerChoice.appendChild(document.createElement("br"));
+            });
+            answerRow.appendChild(answerChoice);
+            mytable.appendChild(answerRow);
+        });
+
+        // Add event listener for the submit button
+        document.getElementById("submit-button").addEventListener("click", () => {
+            submitAnswers(questions.questionList.length);
+        });
+    }
+
+    function submitAnswers(totalQuestions) {
+        const answers = {};
+
+        // Loop through each question to get the selected answer
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selected = document.querySelector(`input[name="${i}"]:checked`);
+            if (selected) {
+                answers[i] = selected.value; // Store the selected answer
+            }
+        }
+
+        // Send the answers to the server
+        fetch('http://localhost:8080/submit-answers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(answers)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Optionally, show results or a message to the user
+        })
+        .catch((error) => {
+            console.error('Error submitting answers:', error);
+        });
+    }
+</script>
+
+
+<body>
+  <!-- Header -->
+
+
+  <!-- Dynamic Header Div -->
+  <div class="header-div" id="header-div">
+    Loading...
+  </div>
+  
+  <!-- Quiz Questions Form -->
+  <div class="header-div" id="quiz-questions">
+    <form method="POST" action="http://localhost:8080/questions">
+      <input type="hidden" id="level" name="level" value="easy">
+      <table id="quiz-table"></table>
+      <button type="submit">Submit</button>
+    </form>
+  </div>  
+</body>   
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Page</title>
+  <style>
+    /* Background image for the body */
+    body {
+      background-image: url('https://img.freepik.com/free-vector/friendship-girls-cartoons_25030-39110.jpg?uid=R165677031&ga=GA1.1.878017198.1726736695&semt=ais_hybrid'); /* Replace with your background image link */
+      background-size: cover;
+      background-position: center;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Styling for the header section */
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(124, 62, 201, 0.6); /* Semi-transparent background */
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    /* Navigation bar styling */
+    .topnav {
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    }
+
+    .topnav a {
+      float: left;
+      display: block;
+      color: #000;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .topnav a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* FAQ Section */
+    #faq {
+      background-color: rgba(41, 23, 69, 0.7); /* Slightly darker background */
+      padding: 30px;
+      margin: 30px auto;
+      width: 50%;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    #faq h2 {
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+      
+    }
+
+    /* Individual FAQ Boxes */
+    .faq-box {
+      background-color:rgba(42, 18, 80, 0.7);
+      border: 1px solid rgba(117, 71, 241, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      width: 700px;
+      transition: all 0.3s ease;
+    }
+
+    .faq-box:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(13, 17, 48, 0.5);
+      transform: translateY(-5px);
+    }
+
+    .faq-box p {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    /* About the website styling */
+    #about {
+      background-color: rgba(41, 23, 69, 0.7); /* Slightly darker background */
+      padding: 20px;
+      margin: 30px auto;
+      width: 60%;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #about h2 {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    #about p {
+      color: #fff;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    /* Image section styling */
+   
+
+    #image-section img {
+      margin: 10px;
+      border-radius: 10px;
+      width: 200px; /* Set your desired image width */
+    }
+
+    /* Quiz Options Section at the end */
+    #options {
+      background-color:rgba(23, 8, 47, 0.7); /* Semi-transparent */
+      padding: 30px;
+      margin: 30px auto;
+      width: 50%;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #options p {
+      font-size: 25px;
+      color: #fff;
+    }
+
+    #options label {
+      font-size: 25px;
+      color: #fff;
+      margin-right: 10px;
+    }
+
+    #options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    #options button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      
+    }
+
+    #options button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Welcome Header -->
+  <div class="header" id="header-div">
+    <h1>Welcome to our mental health care site!</h1>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="topnav" id="myTopnav">
+    <a href="http://localhost:8080/home" class="active">Home</a>
+    <a href="http://localhost:8080/loadPrevScores">Score History</a>
+  </div>
+
+  <!-- New Introduction Section -->
+<div id="intro" style="background-color: rgba(23, 8, 47, 0.7); padding: 20px; margin: 30px auto; width: 60%; border-radius: 10px; text-align: center;">
+    <h2>Take Charge of Your Mental Health</h2>
+    <p>We all go through ups and downs in life. We have those moments of elation and those moments when we feel sad or down.
+      Feeling down from time to time is not unusual, but when those moments seem to hang on and just won’t let go, it might mean you have depression, anxiety or stress.
+      Your mental well-being is important. Our platform is here to support you in understanding and improving your emotional health through tailored assessments and recommendations.</p>
+</div>
+
+
+
+  <!-- About the Website -->
+  <div id="about">
+    <h2>About Us</h2>
+    <p>The mental health care website focuses on providing support for individuals dealing with depression, stress, and anxiety. 
+      It offers a personalized dashboard where users can assess their mental health through MCQs and receive tailored recommendations. 
+      These include books, exercises, and calming music based on their results. 
+      The platform aims to create a safe space for users to understand their emotional state and seek guidance. 
+      Its goal is to promote self-care and mental well-being by connecting people with effective resources.</p>
+  </div>
+
+  <!-- FAQ Section -->
+  <div id="faq">
+    <h2>Frequently Asked Questions (FAQs)</h2>
+
+    <!-- First FAQ -->
+    <div class="faq-box">
+      <p><strong>Q: Who is this quiz for? </strong><br>
+        A:The quiz is for anyone looking to assess their mental health, particularly those experiencing symptoms of depression, anxiety, or stress.
+         It provides insights and personalized recommendations to help manage their well-being..</p>
+    </div>
+
+    <!-- Second FAQ -->
+    <div class="faq-box">
+      <p><strong>Q: Can I take the assessment multiple times?</strong><br>
+        A:Yes, you can retake the assessment as often as you like. It can be helpful to see how your mental state changes over time..</p>
+        
+    </div>
+
+    <!-- Third FAQ -->
+    <div class="faq-box">
+      <p><strong>Q: What kind of recommendations will I get?</strong><br>
+        A: Based on your quiz results, you will receive suggestions for books, exercises, and music that can help you manage stress, anxiety, or depression.</p>
+    </div>
+  </div>
+
+
+  <!-- Quiz Options at the End -->
+  <div class="header" id="options">
+    <form method="POST" action="http://localhost:8080/loadQuestions">
+      <p>Please select the type of quiz:</p>
+      <input type="radio" id="Stress" name="level" value="Stress" required>
+      <label for="Stress">Stress</label><br>
+      <input type="radio" id="Depression" name="level" value="Depression" required>
+      <label for="Depression">Depression</label><br>
+      <input type="radio" id="Anxiety" name="level" value="Anxiety" required>
+      <label for="Anxiety">Anxiety</label><br><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

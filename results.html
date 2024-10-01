@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 25px;
+            height: 20px;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 25px;
+            transition: width 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Levels */
+        .low {
+            background-color: green;
+            width: 25%;
+        }
+
+        .medium {
+            background-color: yellow;
+            width: 50%;
+            color: #333; /* Darker text on light background */
+        }
+
+        .high {
+            background-color: orange;
+            width: 75%;
+        }
+
+        .extreme {
+            background-color: red;
+            width: 100%;
+        }
+
+        /* Optional Hover Effect */
+        .progress-bar:hover .progress-fill {
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Speedometer styles */
+        #speedometer {
+            width: 300px;
+            height: 150px;
+            margin: 20px auto;
+        }
+
+        .gauge {
+            fill: none;
+            stroke-width: 10;
+        }
+
+        .gauge-indicator {
+            fill: red;
+            transition: transform 0.4s ease;
+            stroke: red;
+            stroke-width: 5;
+            marker-end: url(#arrow); /* Use marker for needle effect */
+        }
+
+        /* Needle styling */
+        #needle {
+            fill: none;
+            stroke: rgb(0, 0, 0);
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .label {
+            font-size: 12px;
+            text-anchor: middle;
+            fill: #333;
+        }
+
+        /* Background gradient for speedometer */
+        .background {
+            fill: url(#gradient);
+        }
+    </style>
+</head>
+<script type="text/javascript" charset="utf-8">
+    fetch('http://localhost:8080/results')
+        .then(function (response) {
+            console.log(response);
+            return response.json();
+        }).then(function (apiJsonData) {
+            console.log(apiJsonData);
+            renderHeaderDiv(apiJsonData);
+        });
+        let fin="";
+    function renderHeaderDiv(results) {
+        const optionValues = {
+            "NEVER": 1,
+            "SOMETIMES": 2,
+            "OFTEN": 3,
+            "ALWAYS": 4
+        };
+        let totalScore = 0;
+        
+        fin = results.level;
+        
+        const mydiv = document.getElementById("results-div");
+        mydiv.innerHTML = "<h1> Based on your State here are the Recomended Books and songs !!! </h1>";
+        
+        const mytable = document.getElementById("results-table");
+
+        results.correctedResponses.forEach(result => {
+            let newRow = document.createElement("tr");
+
+            let answerValue = optionValues[result.providedAnswer] || 0; // Default to 0 if no match
+            totalScore += answerValue;
+
+            mytable.appendChild(newRow);
+        });
+
+        // Add the final score row
+        let scoreRow = document.createElement("tr");
+        let scoreCell = document.createElement("th");
+        scoreCell.colSpan = 3;
+        let scoreValueCell = document.createElement("th");
+        scoreValueCell.innerText = totalScore; // Display the calculated score
+        mytable.appendChild(scoreRow);
+
+        displayLevel(totalScore);
+        updateSpeedometer(totalScore); // Update the speedometer
+    }
+    let levelClass = '';
+    let displayText = '';
+    function displayLevel(score) {
+        const progressFill = document.getElementById('progress-fill');
+        const redirect = document.getElementById('redirect');
+        
+        if (score >= 0 && score <= 4) {
+            levelClass = 'low';
+            displayText = 'Low';
+            redirect.addEventListener('click', () => {
+                // Replace 'destination-url' with the URL you want to redirect to
+                window.location.href = '/exercise.html';
+            });
+
+        } else if (score >= 5 && score <= 10) {
+            levelClass = 'medium';
+            displayText = 'Medium';
+            redirect.addEventListener('click', () => {
+                // Replace 'destination-url' with the URL you want to redirect to
+                window.location.href = '/exercise copy.html';
+            });
+            
+        } else if (score >= 11 && score <= 15) {
+            levelClass = 'high';
+            displayText = 'High';
+            redirect.addEventListener('click', () => {
+                // Replace 'destination-url' with the URL you want to redirect to
+                window.location.href = '/exercise.html';
+            });
+        } else if (score >= 16 && score <= 20) {
+            levelClass = 'extreme';
+            displayText = 'Extreme';
+            redirect.addEventListener('click', () => {
+                // Replace 'destination-url' with the URL you want to redirect to
+                window.location.href = '/exercise.html';
+            });
+        }
+        progressFill.className = 'progress-fill ' + levelClass;
+        progressFill.textContent = displayText ; // Display the score inside the bar
+        fin=displayText+" "+fin;
+    }
+
+    const recommendations={
+    "High Stress": {
+      "song": "Breathe Me by Sia",
+      "songdesc": "An emotional ballad that resonates deeply with those experiencing overwhelming emotions. It offers a sense of cathartic release.",
+      "book": "Wherever You Go, There You Are by Jon Kabat-Zinn",
+      "bookdesc": "A classic on mindfulness, teaching the power of being present and offering practices to reduce stress through meditation."
+    },
+    "Medium Stress": {
+      "song": "Clair de Lune by Claude Debussy",
+      "songdesc": "A peaceful and reflective classical piece that can soothe the mind and provide a break from moderate stress.",
+      "book": "The Relaxation Response by Herbert Benson",
+      "bookdesc": "This book outlines the physiological mechanisms of stress and how to engage the relaxation response for mental and physical calm."
+    },
+    "Low Stress": {
+      "song": "Weightless by Marconi Union",
+      "songdesc": "A scientifically composed track known to reduce anxiety and induce relaxation, perfect for maintaining calm.",
+      "book": "The Power of Now by Eckhart Tolle",
+      "bookdesc": "A spiritual guide to living in the present moment, helping readers to focus on the now and reduce unnecessary stress."
+    },
+    "Extreme Stress": {
+      "song": "Fix You by Coldplay",
+      "songdesc": "An uplifting and emotionally supportive song that deals with themes of personal struggle and recovery.",
+      "book": "Radical Acceptance by Tara Brach",
+      "bookdesc": "A book that teaches how to embrace life and oneself with compassion, helping to ease the intense burden of extreme stress."
+    },
+    "High Depression": {
+      "song": "Tears Dry on Their Own by Amy Winehouse",
+      "songdesc": "A soul-stirring song about resilience and moving forward despite emotional struggles, suitable for those experiencing high depression.",
+      "book": "Reasons to Stay Alive by Matt Haig",
+      "bookdesc": "A personal and uplifting account of the author's battle with depression, offering hope and practical advice for those in similar situations."
+    },
+    "Medium Depression": {
+      "song": "Someone Like You by Adele",
+      "songdesc": "A reflective song about loss and moving on, which may resonate with those experiencing moderate depression.",
+      "book": "Feeling Good by David D. Burns",
+      "bookdesc": "A cognitive behavioral therapy (CBT) guide to overcoming depression and improving mental health through actionable steps."
+    },
+    "Low Depression": {
+      "song": "Here Comes the Sun by The Beatles",
+      "songdesc": "An uplifting and positive song, perfect for those beginning to feel better after a period of low depression.",
+      "book": "The Happiness Project by Gretchen Rubin",
+      "bookdesc": "A motivational book about pursuing happiness through small, intentional actions in everyday life."
+    },
+    "Extreme Depression": {
+      "song": "Everybody Hurts by R.E.M.",
+      "songdesc": "A powerful and empathetic song offering comfort to those going through deep emotional pain and struggles.",
+      "book": "Darkness Visible by William Styron",
+      "bookdesc": "A profound memoir about the author's experience with severe depression, shedding light on the realities of the condition."
+    },
+    "High Anxiety": {
+      "song": "Let It Be by The Beatles",
+      "songdesc": "A soothing anthem about accepting things as they are, helping listeners with high anxiety find peace.",
+      "book": "Dare: The New Way to End Anxiety by Barry McDonagh",
+      "bookdesc": "A book that introduces a new approach to overcoming anxiety through facing fears and learning to disarm panic attacks."
+    },
+    "Medium Anxiety": {
+      "song": "Bloom by The Paper Kites",
+      "songdesc": "A calming and gentle song that helps ease moderate anxiety by creating a peaceful mental space.",
+      "book": "The Anxiety and Phobia Workbook by Edmund J. Bourne",
+      "bookdesc": "A comprehensive self-help guide for managing anxiety and phobias through cognitive-behavioral techniques."
+    },
+    "Low Anxiety": {
+      "song": "Lovely Day by Bill Withers",
+      "songdesc": "A feel-good song that can elevate the mood and help maintain a low level of anxiety.",
+      "book": "The Calm Mind by David Warren",
+      "bookdesc": "A short guide to calming the mind through meditation and mindfulness techniques, useful for keeping anxiety low."
+    },
+    "Extreme Anxiety": {
+      "song": "Breathin by Ariana Grande",
+      "songdesc": "A song that directly addresses the feelings of anxiety and encourages the listener to keep breathing through the challenges.",
+      "book": "The Worry Trick by David A. Carbonell",
+      "bookdesc": "A guide that uses cognitive techniques to help people break free from chronic worry and anxiety loops."
+    }
+  };
+    function updateSpeedometer(score) {
+        const angle = (score / 20) * 180; // Scale score to angle (0-180)
+        const needle = document.getElementById('needle');
+        needle.setAttribute('transform', `rotate(${angle - 90} 100 90)`); // Adjust rotation to start from 0
+        fetchRecommendations();
+
+    }
+
+
+
+    
+    function fetchRecommendations() {
+        
+        const result = recommendations[fin]; // Access the corresponding data
+        
+        const recommendationsDiv = document.getElementById('results-div-1'); // Get the div to display results
+            recommendationsDiv.innerHTML = ''; // Clear previous content
+
+            if (result) {
+                // Create elements to display song and book information
+                const songLabel = document.createElement('div');
+                songLabel.className = 'recommendation';
+                songLabel.innerHTML = `<br><br><BR><strong>Recommended Song:</strong> ${result.song} <br><br><BR><em><strong>Song Description:</strong>${result.songdesc}</em><br><br><br>`;
+                
+                const bookLabel = document.createElement('div');
+                bookLabel.className = 'recommendation';
+                bookLabel.innerHTML = `<strong>Recommended Book:</strong> ${result.book} <br><br><br><em><strong>Book Description:</strong>${result.bookdesc}</em>`;
+                
+                // Append them to the recommendations div
+                recommendationsDiv.appendChild(songLabel);
+                recommendationsDiv.appendChild(bookLabel);
+            } else {
+                recommendationsDiv.innerHTML = "No data found for the specified level.";
+            }
+        }
+    
+
+    // Call the function to test
+
+</script>
+<body>
+    <div class="header" id="header"></div>
+
+    <div class="topnav" id="myTopnav">
+        <a href="http://localhost:8080/home">Home</a>
+        <a href="http://localhost:8080/loadPrevScores">Score History</a>
+    </div>
+
+    <div class="header" id="results-div"></div>
+    
+    <div class="header" id="results-display">
+        <table id="results-table"></table>
+    </div>
+
+
+
+    <!-- Speedometer for displaying the score -->
+    <svg id="speedometer" viewBox="0 0 200 90">
+        <defs>
+            <linearGradient id="gradient">
+                <stop offset="0%" style="stop-color: green; stop-opacity: 1" />
+                <stop offset="25%" style="stop-color: yellow; stop-opacity: 1" />
+                <stop offset="50%" style="stop-color: orange; stop-opacity: 1" />
+                <stop offset="75%" style="stop-color: darkorange; stop-opacity: 1" />
+                <stop offset="100%" style="stop-color: red; stop-opacity: 1" />
+            </linearGradient>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                <line x1="0" y1="5" x2="10" y2="5" stroke="red" stroke-width="2" />
+            </marker>
+        </defs>
+        <path class="background" d="M 10 90 A 90 90 0 0 1 190 90" stroke="none"></path> <!-- Background -->
+        <path class="gauge" d="M 10 90 A 90 90 0 0 1 190 90" stroke="lightgray"></path>
+        <line id="needle" x1="100" y1="90" x2="100" y2="40"></line> <!-- Needle -->
+        <text x="10" y="95" class="label">0</text>
+        <text x="100" y="95" class="label">10</text>
+        <text x="190" y="95" class="label">20</text>
+        <circle cx="100" cy="90" r="5" fill="black"></circle> <!-- Pivot point -->
+    </svg>
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="header" id="results-div-1"></div>
+
+       <!-- Button for redirecting to exercise page -->
+       <div style="text-align: center; margin-top: 20px;">
+        <button id="redirect" style="padding: 10px 20px; font-size: 16px;">
+            Go to Exercise
+        </button>
+       
+    </div>
+    
+
+
+        
+</body>
+</html>

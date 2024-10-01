@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Page</title>
+  <style>
+    /* Background image for the body */
+    body {
+      background-image: url('https://wallpaperaccess.com/full/378757.png'); /* Replace with your background image URL */
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container styling */
+    .container {
+      background-color: white; /* Semi-transparent background for form */
+      width: 450px;
+      height: 350px;
+      padding: 80px;
+      margin: 100px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Input fields */
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 20px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    /* Submit button */
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 30px;
+      margin: 20px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Button hover effect */
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* SignUp link */
+    a {
+        padding: 20px;
+      display: block;
+      margin-top: 15px;
+      color: #007BFF;
+      text-align: center;
+    }
+
+    /* Styling for the login status message */
+    #login-status {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 20px;
+      height: 60px;
+      font-size: 24px;
+      color: white;
+    }
+  </style>
+</head>  
+
+<script type="text/javascript" charset="utf-8">
+  fetch('http://localhost:8080/loginStatus')
+      .then(function (response) {
+          console.log(response);
+          return response.json();
+      }).then(function (apiJsonData) {
+          console.log(apiJsonData);
+          renderHeaderDiv(apiJsonData);
+      })
+  
+  function renderHeaderDiv(loginStatus) {
+      const mydiv = document.getElementById("login-status");
+      console.log(loginStatus.status);
+      if (loginStatus.status != null && loginStatus.status === false) {
+        mydiv.innerHTML = "<p style='color:red;'>Invalid login credentials or user doesn't exist. Please register if you are logging in for the first time.</p>";
+      }
+  }
+</script>
+
+<body>
+  <!-- Header -->
+  <div class="header" id="header">
+    Welcome to the Mental Health care
+  </div>  
+  
+  <!-- Login Form -->
+  <form method="POST" action="http://localhost:8080/login">
+    <div class="container"> 
+      <label>Username:</label> 
+      <input type="text" placeholder="Enter Username" name="username" required>
+      <label>Password:</label> 
+      <input type="password" placeholder="Enter Password" name="password" required>
+      <div id="login-status"></div>
+      <button type="submit">Login</button> 
+      <a href="http://localhost:8080/signUpPage">Sign Up?</a>
+    </div> 
+  </form>   
+</body>   
+</html>

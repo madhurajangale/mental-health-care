@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://getwallpapers.com/wallpaper/full/a/1/7/833835-simple-desktop-wallpaper-2560x1600-for-tablet.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      position: relative;
+    }
+    .container {
+      position: relative;
+      top: 25%;
+      left: 30%;
+      width: 40%;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 58px;
+      z-index: 2;
+    }
+    label {
+      margin: 15px 0;
+      padding: 5px;
+      height: 10px;
+      display: block;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      height: 38px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 80%;
+      border-radius: 5px;
+      margin: 30px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page heading -->
+  <h1>Sign Up</h1>
+
+  <!-- Sign-up form -->
+  <form method="POST" action="/signup">
+    
+    <div class="container"> 
+      <label>Full Name (First Name and Last Name):</label> 
+      <input type="text" placeholder="Enter Full Name" name="fullname" required>
+
+      <label>User Name:</label> 
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label>Password:</label> 
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <label>Confirm Password:</label> 
+      <input type="password" placeholder="Re-enter Password" name="confirm-password" required>
+
+      <div id="login-status"></div>
+
+      <button type="submit">REGISTER</button>  
+    </div>
+  </form>
+
+</body>
+</html>

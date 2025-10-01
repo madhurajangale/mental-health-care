@@ -13,16 +13,53 @@
       color: #fff;
       margin: 0;
       padding: 0;
+    
+    }
+
+       nav {
+      background: white;
+         margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      padding: 2px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Navigation list */
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: left;
+      gap: 20px;
+    }
+
+    nav ul li {
+      
+     
+      
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #4B0082;   /* dark purple text */
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Hover effect */
+    nav ul li:hover {
+      background-color: #d1c4e9;
     }
 
     /* Styling for the header section */
     .header {
       text-align: center;
-      padding: 20px;
+      padding: 5px;
       background-color: rgba(124, 62, 201, 0.6); /* Semi-transparent background */
-      font-size: 28px;
+      font-size: 18px;
       color: #fff;
-      margin-bottom: 20px;
+      margin-bottom: 2px;
     }
 
     /* Navigation bar styling */
@@ -95,7 +132,7 @@
       background-color: rgba(41, 23, 69, 0.7); /* Slightly darker background */
       padding: 20px;
       margin: 30px auto;
-      width: 60%;
+      width: 80%;
       border-radius: 10px;
       text-align: center;
     }
@@ -164,19 +201,23 @@
 </head>
 
 <body>
+  
+
+   <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="quizbar.html">Take a Quiz</a></li>
+    </ul>
+  </nav>
+
   <!-- Welcome Header -->
   <div class="header" id="header-div">
     <h1>Welcome to our mental health care site!</h1>
   </div>
 
-  <!-- Navigation Bar -->
-  <div class="topnav" id="myTopnav">
-    <a href="http://localhost:8080/home" class="active">Home</a>
-    <a href="http://localhost:8080/loadPrevScores">Score History</a>
-  </div>
-
   <!-- New Introduction Section -->
-<div id="intro" style="background-color: rgba(23, 8, 47, 0.7); padding: 20px; margin: 30px auto; width: 60%; border-radius: 10px; text-align: center;">
+<div id="intro" style="background-color: rgba(23, 8, 47, 0.7); padding: 20px; margin: 30px auto; width: 80%; border-radius: 10px; text-align: center;">
     <h2>Take Charge of Your Mental Health</h2>
     <p>We all go through ups and downs in life. We have those moments of elation and those moments when we feel sad or down.
       Feeling down from time to time is not unusual, but when those moments seem to hang on and just won’t let go, it might mean you have depression, anxiety or stress.
@@ -221,18 +262,6 @@
   </div>
 
 
-  <!-- Quiz Options at the End -->
-  <div class="header" id="options">
-    <form method="POST" action="http://localhost:8080/loadQuestions">
-      <p>Please select the type of quiz:</p>
-      <input type="radio" id="Stress" name="level" value="Stress" required>
-      <label for="Stress">Stress</label><br>
-      <input type="radio" id="Depression" name="level" value="Depression" required>
-      <label for="Depression">Depression</label><br>
-      <input type="radio" id="Anxiety" name="level" value="Anxiety" required>
-      <label for="Anxiety">Anxiety</label><br><br>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+ 
 </body>
 </html>

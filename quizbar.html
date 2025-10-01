@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Selection</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Background with overlay */
+    body {
+      background: url("https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1400&q=80") no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(138, 80, 181, 0.7); /* Dark purple overlay */
+      z-index: 0;
+    }
+
+    /* Quiz Container */
+    .quiz-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      width: 550px;
+      height: auto;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .quiz-box p {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #a863d9;
+    }
+
+    /* Radio buttons + labels */
+    .quiz-box label {
+      font-size: 20px;
+      margin-left: 8px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .quiz-box input[type="radio"] {
+      accent-color: #ab6fd6; /* Purple theme for radio */
+      transform: scale(1.2);
+    }
+
+    .quiz-box br {
+      margin-bottom: 10px;
+    }
+
+    /* Button */
+    .quiz-box button {
+      background: #69378c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s ease;
+    }
+
+    .quiz-box button:hover {
+      background: #ac45ce;
+    }
+  </style>
+</head>
+<body>
+  <!-- Quiz Options -->
+  <div class="quiz-box">
+    <form method="POST" action="http://localhost:8080/loadQuestions">
+      <p>Please select the type of quiz:</p>
+
+      <input type="radio" id="Stress" name="level" value="Stress" required>
+      <label for="Stress">Stress</label><br>
+
+      <input type="radio" id="Depression" name="level" value="Depression" required>
+      <label for="Depression">Depression</label><br>
+
+      <input type="radio" id="Anxiety" name="level" value="Anxiety" required>
+      <label for="Anxiety">Anxiety</label><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
